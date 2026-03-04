@@ -96,6 +96,33 @@ window.addEventListener('keyup', e => {
   keyState[e.code].down = false;
 });
 
+function setKeyDown(code) {
+  if (!keyState[code]) keyState[code] = { down: false, pressed: false, released: false };
+
+  if (!keyState[code].down) {
+    keyState[code].pressed = true;
+  }
+
+  keyState[code].down = true;
+}
+
+function setKeyUp(code) {
+  if (!keyState[code]) keyState[code] = { down: false, pressed: false, released: false };
+
+  keyState[code].released = true;
+  keyState[code].down = false;
+}
+
+window.addEventListener('pointerdown', e => {
+  setKeyDown('Space');
+  setKeyDown('Enter');
+});
+
+window.addEventListener('pointerup', e => {
+  setKeyUp('Space');
+  setKeyUp('Enter');
+});
+
 //Criar o player
 let bird = instance_create(obj_bird());
 
